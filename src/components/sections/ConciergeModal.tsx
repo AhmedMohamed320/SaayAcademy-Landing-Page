@@ -122,7 +122,7 @@ export default function ConciergeModal({ isOpen, onClose }: ConciergeModalProps)
                   <input
                     type="text"
                     required
-                    placeholder="مثال: السعودية، الإمارات..."
+                    placeholder="مثال: مصر، الإمارات..."
                     value={formData.country}
                     onChange={(e) => setFormData({ ...formData, country: e.target.value })}
                     className="w-full bg-bg-page border border-border-medium focus:border-brand-green rounded-xl px-3 py-2 text-xs sm:text-sm text-text-heading focus:outline-none"

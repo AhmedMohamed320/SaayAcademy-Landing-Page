@@ -29,7 +29,7 @@ export default function FinalCTA({ onOpenBooking, onOpenConcierge }: FinalCTAPro
         </h2>
 
         <p className="text-xs sm:text-sm md:text-base text-text-inverted-muted max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed">
-          انضم إلى مجتمع العائلات التي اختارت الجودة والأمان الأكاديمي. احجز الحصة الاستكشافية الأولى بخصم 40% مع ضمان
+          انضم إلى مجتمع العائلات التي اختارت الجودة والأمان الأكاديمي. احجز الحصة الاستكشافية الأولى لابنك مع ضمان
           الرضا التام واسترداد الرسوم إن لم تنل إعجابك.
         </p>
 

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Rubik, Cairo } from "next/font/google";
 import "./globals.css";
+import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 
 const avenirArabic = localFont({
   src: [
@@ -40,15 +41,15 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://saay.academy"),
   title: "أكاديمية سَعى | Saay Academy - تعليم خصوصي فردي بمعايير استثنائية",
   description:
-    "منصة سَعى الأكاديمية: ربط فوري بين الطالب ونخبة المعلمين المعتمدين في السعودية، الإمارات، قطر، وكافة الدول العربية لمختلف المناهج (الوزاري، الأمريكي، البريطاني، وIB). حصص فردية تفاعلية ومسجلة مع متابعة دقيقة لأولياء الأمور.",
+    "منصة سَعى الأكاديمية: ربط فوري بين الطالب ونخبة المعلمين المعتمدين في مصر والإمارات لمختلف المناهج (المصري، الإماراتي، الأمريكي، البريطاني IGCSE، وIB). حصص فردية تفاعلية ومسجلة مع متابعة دقيقة لأولياء الأمور.",
   keywords: [
     "أكاديمية سَعى",
     "Saay Academy",
     "دروس خصوصية أونلاين",
-    "معلم خصوصي السعودية",
+    "معلم خصوصي مصر",
     "معلم خصوصي الإمارات",
-    "معلم خصوصي قطر",
-    "منهج وزاري",
+    "منهج مصري ثانوية عامة",
+    "منهج إماراتي EmSAT",
     "منهج بريطاني IGCSE",
     "منهج أمريكي SAT",
     "دروس تفاعلية 1-on-1",
@@ -61,7 +62,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "أكاديمية سَعى - المنصة التعليمية الذكية للدروس الخصوصية الفردية",
     description:
-      "احجز حصتك التفاعلية مع نخبة المعلمين المفحوصين والمعتمدين لجميع المناهج والمراحل الدراسية في السعودية والخليج ومصر.",
+      "احجز حصتك التفاعلية مع نخبة المعلمين المفحوصين والمعتمدين لجميع المناهج والمراحل الدراسية في مصر والإمارات.",
     url: "https://saay.academy",
     siteName: "أكاديمية سَعى",
     images: [
@@ -72,7 +73,7 @@ export const metadata: Metadata = {
         alt: "أكاديمية سَعى",
       },
     ],
-    locale: "ar_SA",
+    locale: "ar_EG",
     type: "website",
   },
 };
@@ -89,7 +90,7 @@ export default function RootLayout({
       className={`${avenirArabic.variable} ${rubik.variable} ${cairo.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-bg-page text-text-body font-body selection:bg-brand-green selection:text-text-inverted">
-        {children}
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>
   );

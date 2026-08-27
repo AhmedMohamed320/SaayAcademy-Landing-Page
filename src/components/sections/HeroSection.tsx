@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
   Sparkles,
   ShieldCheck,
@@ -9,12 +9,12 @@ import {
   ArrowLeft,
   GraduationCap,
   CheckCircle2,
-  Users,
   Clock,
   Award,
   CheckCheck,
 } from "@/components/icons/AnimatedIcons";
 import { SAAY_COUNTRIES, SAAY_CURRICULA, SAAY_SUBJECTS } from "@/lib/constants";
+import CustomSelect, { OptionItem } from "@/components/ui/CustomSelect";
 
 interface HeroSectionProps {
   onQuickSearch: (country: string, curriculum: string, subject: string) => void;
@@ -25,6 +25,33 @@ export default function HeroSection({ onQuickSearch, onOpenConcierge }: HeroSect
   const [selectedCountry, setSelectedCountry] = useState(SAAY_COUNTRIES[0].id);
   const [selectedCurriculum, setSelectedCurriculum] = useState(SAAY_CURRICULA[0].id);
   const [selectedSubject, setSelectedSubject] = useState(SAAY_SUBJECTS[0].id);
+
+  const countryOptions: OptionItem[] = useMemo(
+    () =>
+      SAAY_COUNTRIES.map((c) => ({
+        value: c.id,
+        label: `${c.flag} ${c.name}`,
+      })),
+    []
+  );
+
+  const curriculumOptions: OptionItem[] = useMemo(
+    () =>
+      SAAY_CURRICULA.map((cur) => ({
+        value: cur.id,
+        label: cur.name,
+      })),
+    []
+  );
+
+  const subjectOptions: OptionItem[] = useMemo(
+    () =>
+      SAAY_SUBJECTS.map((sub) => ({
+        value: sub.id,
+        label: sub.name,
+      })),
+    []
+  );
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,7 +79,7 @@ export default function HeroSection({ onQuickSearch, onOpenConcierge }: HeroSect
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-green"></span>
               </span>
               <Sparkles size={14} className="text-brand-gold flex-shrink-0" />
-              <span>تعليم فردي معتمد في الخليج والعالم العربي</span>
+              <span>تعليم فردي خصوصي معتمد في مصر 🇪🇬 والإمارات 🇦🇪</span>
             </div>
 
             {/* Main Headline */}
@@ -66,8 +93,8 @@ export default function HeroSection({ onQuickSearch, onOpenConcierge }: HeroSect
             {/* Subtitle */}
             <p className="text-xs sm:text-base md:text-lg text-text-body leading-relaxed max-w-2xl">
               نربطك فورياً بصفوة <strong className="text-brand-primary font-bold">أفضل 5% من المعلمين المعتمدين</strong>{" "}
-              في المناهج الوطنية (السعودي، الإماراتي، القطري، المصري) والمناهج الدولية (البريطاني IGCSE، الأمريكي، و IB).
-              حصص فردية 1-on-1 تفاعلية، مسجلة بالكامل مع تقارير أداء ومتابعة لولي الأمر.
+              في المناهج الوطنية (المصري العام واللغات، والإماراتي بمساراته واختبارات EmSAT) والمناهج الدولية (البريطاني IGCSE، الأمريكي، و IB).
+              حصص فردية 1-on-1 تفاعلية، مسجلة بالكامل مع تقارير أداء ومتابعة مستمرة لولي الأمر.
             </p>
 
             {/* Quick Interactive Match Finder Box */}
@@ -87,53 +114,29 @@ export default function HeroSection({ onQuickSearch, onOpenConcierge }: HeroSect
               </div>
 
               <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
-                {/* Country Selector */}
-                <div>
-                  <label className="block text-[10px] sm:text-[11px] font-semibold text-text-muted mb-0.5">الدولة</label>
-                  <select
-                    value={selectedCountry}
-                    onChange={(e) => setSelectedCountry(e.target.value)}
-                    className="w-full bg-bg-surface border border-border-medium focus:border-brand-green rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 text-xs sm:text-sm font-medium text-text-heading focus:outline-none transition-colors"
-                  >
-                    {SAAY_COUNTRIES.map((c) => (
-                      <option key={c.id} value={c.id}>
-                        {c.flag} {c.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                {/* Custom Country Selector */}
+                <CustomSelect
+                  label="الدولة"
+                  value={selectedCountry}
+                  onChange={setSelectedCountry}
+                  options={countryOptions}
+                />
 
-                {/* Curriculum Selector */}
-                <div>
-                  <label className="block text-[10px] sm:text-[11px] font-semibold text-text-muted mb-0.5">المنهج الدراسي</label>
-                  <select
-                    value={selectedCurriculum}
-                    onChange={(e) => setSelectedCurriculum(e.target.value)}
-                    className="w-full bg-bg-surface border border-border-medium focus:border-brand-green rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 text-xs sm:text-sm font-medium text-text-heading focus:outline-none transition-colors"
-                  >
-                    {SAAY_CURRICULA.map((cur) => (
-                      <option key={cur.id} value={cur.id}>
-                        {cur.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                {/* Custom Curriculum Selector */}
+                <CustomSelect
+                  label="المنهج الدراسي"
+                  value={selectedCurriculum}
+                  onChange={setSelectedCurriculum}
+                  options={curriculumOptions}
+                />
 
-                {/* Subject Selector */}
-                <div>
-                  <label className="block text-[10px] sm:text-[11px] font-semibold text-text-muted mb-0.5">المادة المطلوبة</label>
-                  <select
-                    value={selectedSubject}
-                    onChange={(e) => setSelectedSubject(e.target.value)}
-                    className="w-full bg-bg-surface border border-border-medium focus:border-brand-green rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 text-xs sm:text-sm font-medium text-text-heading focus:outline-none transition-colors"
-                  >
-                    {SAAY_SUBJECTS.map((sub) => (
-                      <option key={sub.id} value={sub.id}>
-                        {sub.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                {/* Custom Subject Selector */}
+                <CustomSelect
+                  label="المادة المطلوبة"
+                  value={selectedSubject}
+                  onChange={setSelectedSubject}
+                  options={subjectOptions}
+                />
 
                 {/* Submit CTA */}
                 <div className="sm:col-span-3 mt-1">
@@ -205,12 +208,12 @@ export default function HeroSection({ onQuickSearch, onOpenConcierge }: HeroSect
                     </div>
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <h4 className="text-xs sm:text-sm font-bold text-text-heading">د. عبد الرحمن الشهري</h4>
+                        <h4 className="text-xs sm:text-sm font-bold text-text-heading">د. عبد الرحمن زهران</h4>
                         <span className="inline-flex items-center px-1.5 py-0.5 rounded-md text-[9px] sm:text-[10px] font-bold bg-brand-green-light text-brand-green-dark">
                           معتمد
                         </span>
                       </div>
-                      <p className="text-[11px] text-text-muted">خبير الرياضيات والفيزياء (IGCSE & وزاري)</p>
+                      <p className="text-[11px] text-text-muted">خبير الرياضيات والفيزياء (IGCSE & ثانوية عامة & EmSAT)</p>
                     </div>
                   </div>
 
@@ -236,7 +239,7 @@ export default function HeroSection({ onQuickSearch, onOpenConcierge }: HeroSect
 
                   {/* Math Formula / Interactive Content */}
                   <div className="py-1.5 text-center">
-                    <span className="text-[10px] sm:text-xs text-text-inverted-muted block mb-1">حل معادلة التفاضل والتكامل التطبيقية:</span>
+                    <span className="text-[10px] sm:text-xs text-text-inverted-muted block mb-1">حل مسألة التفاضل والتطبيقات الحسابية:</span>
                     <div className="font-mono text-xs sm:text-base md:text-lg font-bold text-brand-green tracking-wide bg-bg-dark-card py-1.5 px-2.5 sm:py-2 sm:px-3 rounded-xl border border-border-dark-glass inline-block max-w-full overflow-x-auto">
                       f&apos;(x) = \lim_&#123;h \to 0&#125; \frac&#123;f(x+h) - f(x)&#125;&#123;h&#125;
                     </div>
@@ -263,7 +266,7 @@ export default function HeroSection({ onQuickSearch, onOpenConcierge }: HeroSect
                       ))}
                       <span className="text-[11px] sm:text-xs font-bold text-text-heading mr-1">4.98 / 5</span>
                     </div>
-                    <p className="text-[10px] sm:text-[11px] text-text-muted">تقييم 890+ حصة مكتملة</p>
+                    <p className="text-[10px] sm:text-[11px] text-text-muted">تقييم 940+ حصة مكتملة</p>
                   </div>
 
                   <a

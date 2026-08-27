@@ -18,7 +18,7 @@ interface TeacherRecruitmentProps {
 
 export default function TeacherRecruitment({ onOpenTeacherModal }: TeacherRecruitmentProps) {
   const [hoursPerWeek, setHoursPerWeek] = useState(15);
-  const hourlyRateAvg = 130; // average SAR per hour
+  const hourlyRateAvg = 135; // average estimated rate
   const monthlyEarnings = hoursPerWeek * 4 * hourlyRateAvg;
 
   return (
@@ -29,7 +29,7 @@ export default function TeacherRecruitment({ onOpenTeacherModal }: TeacherRecrui
           <div className="lg:col-span-6 flex flex-col gap-4 sm:gap-5 text-right">
             <div className="inline-flex items-center gap-1.5 sm:gap-2 self-start px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-brand-green-light border border-brand-green/30 text-brand-primary text-[11px] sm:text-xs font-bold whitespace-nowrap">
               <GraduationCap size={15} className="text-brand-green" />
-              <span>فرصة تدريس استثنائية للكفاءات التعليمية</span>
+              <span>فرصة تدريس استثنائية لنخبة الكفاءات في مصر والإمارات</span>
             </div>
 
             <h2 className="text-xl sm:text-3xl md:text-4xl font-extrabold font-heading text-text-heading leading-tight">
@@ -38,8 +38,8 @@ export default function TeacherRecruitment({ onOpenTeacherModal }: TeacherRecrui
             </h2>
 
             <p className="text-xs sm:text-sm md:text-base text-text-body leading-relaxed">
-              إذا كنت معلماً متمكناً ولديك شغف بتبسيط العلوم والمناهج (الوزاري، الأمريكي، البريطاني، أو IB)، نمنحك المنصة
-              المثالية للوصول لآلاف الطلاب الجادين في دول الخليج والعالم العربي.
+              إذا كنت معلماً متمكناً ولديك شغف بتبسيط العلوم والمناهج (المصري العام واللغات، الإماراتي، البريطاني IGCSE، الأمريكي، أو IB)، نمنحك المنصة
+              المثالية للوصول لآلاف الطلاب الجادين في جمهورية مصر العربية ودولة الإمارات العربية المتحدة.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5 pt-1">
@@ -56,7 +56,7 @@ export default function TeacherRecruitment({ onOpenTeacherModal }: TeacherRecrui
                   <ShieldCheck size={16} />
                 </div>
                 <h4 className="text-xs sm:text-sm font-bold text-text-heading mb-0.5">أمان مالي وتحويل منتظم</h4>
-                <p className="text-[11px] sm:text-xs text-text-muted">مستحقاتك المالية محفوظة بنسبة 100% وتصلك دورياً.</p>
+                <p className="text-[11px] sm:text-xs text-text-muted">مستحقاتك المالية محفوظة بنسبة 100% وتصلك دورياً وبطرق دفع محلية مرنة.</p>
               </div>
 
               <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-bg-page border border-border-light">
@@ -64,7 +64,7 @@ export default function TeacherRecruitment({ onOpenTeacherModal }: TeacherRecrui
                   <Laptop size={16} />
                 </div>
                 <h4 className="text-xs sm:text-sm font-bold text-text-heading mb-0.5">أدوات تدريس ذكية</h4>
-                <p className="text-[11px] sm:text-xs text-text-muted">قاعات افتراضية متطورة، سبورة تفاعلية، وتسجيل آلي.</p>
+                <p className="text-[11px] sm:text-xs text-text-muted">قاعات افتراضية متطورة، سبورة تفاعلية، وتسجيل آلي للحصص.</p>
               </div>
 
               <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-bg-page border border-border-light">
@@ -72,7 +72,7 @@ export default function TeacherRecruitment({ onOpenTeacherModal }: TeacherRecrui
                   <Award size={16} />
                 </div>
                 <h4 className="text-xs sm:text-sm font-bold text-text-heading mb-0.5">تقدير وسمعة أكاديمية</h4>
-                <p className="text-[11px] sm:text-xs text-text-muted">بناء بروفايل احترافي موثق وتقييمات حقيقية لتعزيز مكانتك.</p>
+                <p className="text-[11px] sm:text-xs text-text-muted">بناء بروفايل احترافي موثق وتقييمات حقيقية لتعزيز مكانتك التعليمية.</p>
               </div>
             </div>
 
@@ -135,10 +135,10 @@ export default function TeacherRecruitment({ onOpenTeacherModal }: TeacherRecrui
               <div className="bg-bg-dark-card border border-border-dark-glass rounded-xl p-3.5 text-center mb-4">
                 <span className="text-[11px] text-text-inverted-muted block mb-1">الدخل الشهري المتوقع التقديري:</span>
                 <div className="text-xl sm:text-3xl font-extrabold font-heading text-brand-green">
-                  {monthlyEarnings.toLocaleString()} <span className="text-xs sm:text-base font-bold text-text-inverted">ر.س / شهرياً</span>
+                  {monthlyEarnings.toLocaleString()} <span className="text-xs sm:text-base font-bold text-text-inverted">درهم / حسب العملة شهرياً</span>
                 </div>
                 <span className="text-[9px] sm:text-[10px] text-text-inverted-muted mt-1 block">
-                  * محسوب بمتوسط سعر الحصة 130 ر.س مع انتظام {hoursPerWeek} ساعة أسبوعياً.
+                  * محسوب بمتوسط سعر الحصة التدريسية مع انتظام {hoursPerWeek} ساعة أسبوعياً.
                 </span>
               </div>
 

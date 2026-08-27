@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import confetti from "canvas-confetti";
 import { X, ShieldCheck, CheckCircle2, ArrowLeft, Star, CalendarCheck, Lock } from "@/components/icons/AnimatedIcons";
 import { Teacher, PricingPlan } from "@/types";
+import CustomSelect, { OptionItem } from "@/components/ui/CustomSelect";
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -21,6 +22,25 @@ export default function BookingModal({ isOpen, onClose, teacher, plan }: Booking
     paymentMethod: "card",
   });
   const [isSuccess, setIsSuccess] = useState(false);
+
+  const dayOptions: OptionItem[] = useMemo(
+    () => [
+      { value: "اليوم", label: "اليوم المتاح" },
+      { value: "غداً", label: "غداً" },
+      { value: "خلال الأسبوع", label: "خلال هذا الأسبوع" },
+    ],
+    []
+  );
+
+  const timeOptions: OptionItem[] = useMemo(
+    () => [
+      { value: "4:00 م - 5:00 م", label: "4:00 م - 5:00 م" },
+      { value: "5:30 م - 6:30 م", label: "5:30 م - 6:30 م" },
+      { value: "7:00 م - 8:00 م", label: "7:00 م - 8:00 م" },
+      { value: "8:30 م - 9:30 م", label: "8:30 م - 9:30 م" },
+    ],
+    []
+  );
 
   if (!isOpen) return null;
 
@@ -117,7 +137,7 @@ export default function BookingModal({ isOpen, onClose, teacher, plan }: Booking
 
               {/* Form Inputs */}
               <div>
-                <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1">اسم الطالب:</label>
+                <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1 text-right">اسم الطالب:</label>
                 <input
                   type="text"
                   required
@@ -129,13 +149,13 @@ export default function BookingModal({ isOpen, onClose, teacher, plan }: Booking
               </div>
 
               <div>
-                <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1">
+                <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1 text-right">
                   رقم الواتساب (لإرسال الموعد والتسجيل):
                 </label>
                 <input
                   type="tel"
                   required
-                  placeholder="05xxxxxxxx أو +966xxxxxxxx"
+                  placeholder="01xxxxxxxxx أو +971xxxxxxxx"
                   value={formData.parentPhone}
                   onChange={(e) => setFormData({ ...formData, parentPhone: e.target.value })}
                   className="w-full bg-bg-surface border border-border-medium focus:border-brand-green rounded-xl px-3 py-2 text-xs sm:text-sm text-text-heading focus:outline-none"
@@ -143,34 +163,21 @@ export default function BookingModal({ isOpen, onClose, teacher, plan }: Booking
                 />
               </div>
 
-              {/* Time Preference */}
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <label className="block text-[10px] sm:text-xs font-bold text-text-heading mb-1">اليوم المفضل:</label>
-                  <select
-                    value={formData.selectedDay}
-                    onChange={(e) => setFormData({ ...formData, selectedDay: e.target.value })}
-                    className="w-full bg-bg-surface border border-border-medium focus:border-brand-green rounded-xl px-2.5 py-2 text-[11px] sm:text-xs text-text-heading focus:outline-none"
-                  >
-                    <option value="اليوم">اليوم المتاح</option>
-                    <option value="غداً">غداً</option>
-                    <option value="خلال الأسبوع">خلال هذا الأسبوع</option>
-                  </select>
-                </div>
+              {/* Time Preference using CustomSelect */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <CustomSelect
+                  label="اليوم المفضل:"
+                  value={formData.selectedDay}
+                  onChange={(val) => setFormData({ ...formData, selectedDay: val })}
+                  options={dayOptions}
+                />
 
-                <div>
-                  <label className="block text-[10px] sm:text-xs font-bold text-text-heading mb-1">الفترة الزمنية:</label>
-                  <select
-                    value={formData.selectedTime}
-                    onChange={(e) => setFormData({ ...formData, selectedTime: e.target.value })}
-                    className="w-full bg-bg-surface border border-border-medium focus:border-brand-green rounded-xl px-2.5 py-2 text-[11px] sm:text-xs text-text-heading focus:outline-none"
-                  >
-                    <option value="4:00 م - 5:00 م">4:00 م - 5:00 م</option>
-                    <option value="5:30 م - 6:30 م">5:30 م - 6:30 م</option>
-                    <option value="7:00 م - 8:00 م">7:00 م - 8:00 م</option>
-                    <option value="8:30 م - 9:30 م">8:30 م - 9:30 م</option>
-                  </select>
-                </div>
+                <CustomSelect
+                  label="الفترة الزمنية:"
+                  value={formData.selectedTime}
+                  onChange={(val) => setFormData({ ...formData, selectedTime: val })}
+                  options={timeOptions}
+                />
               </div>
 
               {/* Security & Guarantee Note */}

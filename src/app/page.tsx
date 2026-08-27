@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import AnnouncementBar from "@/components/layout/AnnouncementBar";
 import Navbar from "@/components/layout/Navbar";
 import HeroSection from "@/components/sections/HeroSection";
 import AcademicSelector from "@/components/sections/AcademicSelector";
@@ -58,11 +57,8 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col bg-bg-page text-text-body font-body selection:bg-brand-secondary selection:text-text-inverted">
-      {/* Top Notification Announcement Bar */}
-      <AnnouncementBar />
-
-      {/* Main Header & Navbar */}
+    <main className="min-h-screen flex flex-col bg-bg-page text-text-body font-body selection:bg-brand-green selection:text-brand-primary">
+      {/* Main Header & Navbar with Dark Background */}
       <Navbar
         onOpenConcierge={() => setIsConciergeOpen(true)}
         onOpenTeacherModal={() => setIsTeacherModalOpen(true)}

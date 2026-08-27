@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import confetti from "canvas-confetti";
 import { X, GraduationCap, ShieldCheck, CheckCircle2, ArrowLeft } from "@/components/icons/AnimatedIcons";
 import { SAAY_CURRICULA, SAAY_SUBJECTS } from "@/lib/constants";
+import CustomSelect, { OptionItem } from "@/components/ui/CustomSelect";
 
 interface TeacherModalProps {
   isOpen: boolean;
@@ -15,12 +16,32 @@ export default function TeacherModal({ isOpen, onClose }: TeacherModalProps) {
     name: "",
     email: "",
     phone: "",
-    subject: "الرياضيات (Mathematics)",
-    curriculum: "المنهج السعودي (الوزاري والأهلي)",
-    yearsOfExperience: "5 سنوات فأكثر",
+    subject: SAAY_SUBJECTS[0].name,
+    curriculum: SAAY_CURRICULA[0].name,
+    yearsOfExperience: "5 - 10 سنوات",
     bio: "",
   });
   const [isSuccess, setIsSuccess] = useState(false);
+
+  const subjectOptions: OptionItem[] = useMemo(
+    () => SAAY_SUBJECTS.map((s) => ({ value: s.name, label: s.name })),
+    []
+  );
+
+  const curriculumOptions: OptionItem[] = useMemo(
+    () => SAAY_CURRICULA.map((cur) => ({ value: cur.name, label: cur.name })),
+    []
+  );
+
+  const experienceOptions: OptionItem[] = useMemo(
+    () => [
+      { value: "1 - 3 سنوات", label: "1 - 3 سنوات" },
+      { value: "3 - 5 سنوات", label: "3 - 5 سنوات" },
+      { value: "5 - 10 سنوات", label: "5 - 10 سنوات" },
+      { value: "أكثر من 10 سنوات", label: "أكثر من 10 سنوات" },
+    ],
+    []
+  );
 
   if (!isOpen) return null;
 
@@ -93,7 +114,7 @@ export default function TeacherModal({ isOpen, onClose }: TeacherModalProps) {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-3.5">
               <div>
-                <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1">الاسم الثلاثي أو اللقب</label>
+                <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1 text-right">الاسم الثلاثي أو اللقب</label>
                 <input
                   type="text"
                   required
@@ -106,11 +127,11 @@ export default function TeacherModal({ isOpen, onClose }: TeacherModalProps) {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                 <div>
-                  <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1">رقم الواتساب</label>
+                  <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1 text-right">رقم الواتساب</label>
                   <input
                     type="tel"
                     required
-                    placeholder="05xxxxxxxx أو +966xxxxxxxx"
+                    placeholder="01xxxxxxxxx أو +971xxxxxxxx"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="w-full bg-bg-page border border-border-medium focus:border-brand-green rounded-xl px-3 py-2 text-xs sm:text-sm text-text-heading focus:outline-none"
@@ -119,7 +140,7 @@ export default function TeacherModal({ isOpen, onClose }: TeacherModalProps) {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1">البريد الإلكتروني</label>
+                  <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1 text-right">البريد الإلكتروني</label>
                   <input
                     type="email"
                     required
@@ -132,54 +153,33 @@ export default function TeacherModal({ isOpen, onClose }: TeacherModalProps) {
                 </div>
               </div>
 
+              {/* Subject & Curriculum using CustomSelect */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
-                <div>
-                  <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1">المادة الأساسية</label>
-                  <select
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full bg-bg-page border border-border-medium focus:border-brand-green rounded-xl px-3 py-2 text-xs sm:text-sm text-text-heading focus:outline-none"
-                  >
-                    {SAAY_SUBJECTS.map((s) => (
-                      <option key={s.id} value={s.name}>
-                        {s.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                <CustomSelect
+                  label="المادة الأساسية"
+                  value={formData.subject}
+                  onChange={(val) => setFormData({ ...formData, subject: val })}
+                  options={subjectOptions}
+                />
 
-                <div>
-                  <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1">المنهج الأكثر إتقاناً</label>
-                  <select
-                    value={formData.curriculum}
-                    onChange={(e) => setFormData({ ...formData, curriculum: e.target.value })}
-                    className="w-full bg-bg-page border border-border-medium focus:border-brand-green rounded-xl px-3 py-2 text-xs sm:text-sm text-text-heading focus:outline-none"
-                  >
-                    {SAAY_CURRICULA.map((cur) => (
-                      <option key={cur.id} value={cur.name}>
-                        {cur.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                <CustomSelect
+                  label="المنهج الأكثر إتقاناً"
+                  value={formData.curriculum}
+                  onChange={(val) => setFormData({ ...formData, curriculum: val })}
+                  options={curriculumOptions}
+                />
               </div>
 
-              <div>
-                <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1">سنوات الخبرة</label>
-                <select
-                  value={formData.yearsOfExperience}
-                  onChange={(e) => setFormData({ ...formData, yearsOfExperience: e.target.value })}
-                  className="w-full bg-bg-page border border-border-medium focus:border-brand-green rounded-xl px-3 py-2 text-xs sm:text-sm text-text-heading focus:outline-none"
-                >
-                  <option value="1 - 3 سنوات">1 - 3 سنوات</option>
-                  <option value="3 - 5 سنوات">3 - 5 سنوات</option>
-                  <option value="5 - 10 سنوات">5 - 10 سنوات</option>
-                  <option value="أكثر من 10 سنوات">أكثر من 10 سنوات</option>
-                </select>
-              </div>
+              {/* Experience using CustomSelect */}
+              <CustomSelect
+                label="سنوات الخبرة"
+                value={formData.yearsOfExperience}
+                onChange={(val) => setFormData({ ...formData, yearsOfExperience: val })}
+                options={experienceOptions}
+              />
 
               <div>
-                <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1">نبذة عن أسلوبك التدريسي</label>
+                <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1 text-right">نبذة عن أسلوبك التدريسي</label>
                 <textarea
                   rows={2}
                   placeholder="شاركنا بأهم إنجازاتك أو الشهادات التخصصية التي تحملها..."
