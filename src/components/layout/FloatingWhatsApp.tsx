@@ -8,7 +8,7 @@ export default function FloatingWhatsApp() {
 
   const defaultPhone = "+966500000000";
   const defaultMessage = encodeURIComponent(
-    "السلام عليكم، أود الاستفسار عن حجز حصة فردية في أكاديمية سَعى لابني/ابنتي."
+    "السلام عليكم، أود الاستفسار عن المجموعات الدراسية واشتراك المواد في أكاديمية سَعى."
   );
   const whatsappUrl = `https://wa.me/${defaultPhone}?text=${defaultMessage}`;
 
@@ -29,7 +29,7 @@ export default function FloatingWhatsApp() {
             <span>المنسق الأكاديمي متاح الآن</span>
           </div>
           <p className="text-[10px] sm:text-[11px] text-text-muted leading-relaxed">
-            هل تحتاج مساعدة في اختيار المعلم الأنسب أو لديك استفسار عن منهجك؟
+            هل تحتاج مساعدة في اختيار المادة أو الانضمام لمجموعة دراسية؟
           </p>
         </div>
       )}

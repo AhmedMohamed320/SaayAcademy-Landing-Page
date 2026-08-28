@@ -171,33 +171,34 @@ Admin-only operational tools must remain protected.
 
 ---
 
-# 4. THE CORE SAAY PROMISE
+# 4. THE CORE SAAY PROMISE & OPERATIONAL MODEL
 
 The core promise is:
 
-> **"تلاقي المدرس المناسب وتحجز حصتك بسهولة."**
+> **"تحجز مادتك ومجموعتك الدراسية بسهولة، وبأعلى دقة ومتابعة مستمرة."**
+
+### Core Business & Booking Rules:
+1. **Subject Group Model (منهجية حجز المواد والمجموعات الدراسية):**
+   * Students do **NOT** pick teachers by name from an open individual teacher marketplace.
+   * The student/parent selects: **Country (مصر / الإمارات) → Curriculum & Grade (المنهج والصف) → Subject (المادة)**.
+   * Saay organizes students into dedicated study groups (**8 sessions per month per subject - بمعدل حصتين أسبوعياً**) and assigns the qualified, tested teacher for that group.
+
+2. **Honest Teacher Screening & Vetting (تقييم وتأهيل المعلمين الصادق):**
+   * **STRICT PROHIBITION:** Never make fake marketing claims like "نخبة 5% من كبار المعلمين المعتمدين دولياً" or invent celebrity teacher biographies.
+   * **The Reality:** Saay recruits qualified, passionate Egyptian teachers and graduates, thoroughly evaluates and tests their subject mastery and explanation clarity, and trains them to ensure they fit Saay's teaching standards.
+   * **Teacher Compensation:** Teachers are compensated 100 to 150 EGP per hour in Egyptian currency.
+
+3. **Transparent Pricing:**
+   * **Egypt (🇪🇬):** 250 EGP/month per subject (8 interactive sessions monthly ~ 31 EGP/session). Trial session: 40 EGP. Full semester (24 sessions): 690 EGP.
+   * **UAE (🇦🇪):** 30 - 50 AED per session (~280 AED/month for 8 sessions). Trial session: 35 AED. Full semester: 760 AED.
 
 The product should make users feel:
 
-> "أنا فاهم أعمل إيه."
+> "أنا فاهم أعمل إيه وبسجل في مادة ومجموعة دراسية واضحة."
 
-> "أنا هلاقي المدرس المناسب."
+> "أنا عارف إن المعلم اللي سعى اختارته للمجموعة تم اختباره والتأكد من أسلوب شرحه."
 
-> "لو المنهج بتاعي مش موجود، المنصة هتساعدني بدل ما توقفني."
-
-> "أنا عارف الحجز بتاعي فين."
-
-> "أنا عارف مين المدرس، إمتى الحصة، وإيه اللي هيحصل."
-
-> "لو حصلت مشكلة، فيه حد أقدر أتواصل معاه."
-
-For teachers:
-
-> "أنا عارف حالة حسابي، إيه اللي ناقص، وإمتى أقدر أبدأ."
-
-For admins:
-
-> "أنا أقدر أدير المنصة من غير ما الداتا تبقى فوضوية."
+> "أنا عارف مواعيد حصصي (8 حصص شهرياً) والتسجيلات متاحة دايماً للمراجعة."
 
 ---
 
@@ -205,15 +206,15 @@ For admins:
 
 Every experience should aim for:
 
-> **يدخل → يفهم → يختار → يحجز → يتابع → يكمّل**
+> **يدخل → يفهم → يختار المادة والمنهج → ينضم للمجموعة → يحضر الحصص → يستفيد من التسجيلات والمتابعة**
 
-For a normal student booking:
+For a normal student enrollment:
 
-> **سجل → حدد الدولة والمنهج والصف → اختار المادة → شوف المدرسين → اختار الوقت → احجز → ادفع**
+> **حدد الدولة والمنهج والصف → اختار المادة → اختر موعد المجموعة الأنسب → احجز → ادفع أو تواصل مع المنسق**
 
 For a teacher:
 
-> **سجل → قيد المراجعة → اعتماد → تحديد المواد → تحديد التوفر → استقبال الحجوزات → تقديم الحصة**
+> **سجل → اختبار وتقييم تدريسي → اعتماد وتأهيل → إسناد المجموعات الدراسية → تقديم الحصص (100 - 150 ج.م/ساعة)**
 
 For support:
 

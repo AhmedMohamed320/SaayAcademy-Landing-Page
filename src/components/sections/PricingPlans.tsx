@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Check,
   Sparkles,
@@ -10,7 +10,7 @@ import {
   BadgePercent,
   Lock,
 } from "@/components/icons/AnimatedIcons";
-import { SAAY_PRICING_PLANS } from "@/lib/constants";
+import { SAAY_PRICING_PLANS_EG, SAAY_PRICING_PLANS_AE } from "@/lib/constants";
 import { PricingPlan } from "@/types";
 
 interface PricingPlansProps {
@@ -18,26 +18,61 @@ interface PricingPlansProps {
 }
 
 export default function PricingPlans({ onSelectPlan }: PricingPlansProps) {
+  const [selectedCountry, setSelectedCountry] = useState<"egypt" | "uae">("egypt");
+
+  const currentPlans = selectedCountry === "egypt" ? SAAY_PRICING_PLANS_EG : SAAY_PRICING_PLANS_AE;
+
   return (
     <section id="pricing" className="py-10 sm:py-16 md:py-20 bg-bg-page relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-brand-green-light border border-brand-green/30 text-brand-primary text-[11px] sm:text-xs font-bold mb-2.5 sm:mb-3 whitespace-nowrap">
             <BadgePercent size={15} className="text-brand-green" />
             <span>تسعير واضح وشفاف 100% بدون أي رسوم خفية</span>
           </div>
-          <h2 className="text-xl sm:text-3xl md:text-4xl font-extrabold font-heading text-text-heading mb-2 sm:mb-3">
-            باقات مدروسة لتلائم هدف ابنك الدراسي
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold font-heading text-text-heading leading-[1.45] mb-3">
+            اشتراكات المواد بأفضل عائد تعليمي واقتصادي
           </h2>
-          <p className="text-xs sm:text-sm md:text-base text-text-body">
-            استثمر في تفوق ابنك مع باقات مرنة توفر لك أعلى جودة تدريسية مع ضمان استرداد الرضا الكامل.
+          <p className="text-xs sm:text-sm md:text-base text-text-body leading-[1.75]">
+            اشتراك شهري للمادة (8 حصص تفاعلية) مع معلمين مصريين مؤهلين ومختبرين من سَعى وضمان استرداد الرضا 100%.
           </p>
+        </div>
+
+        {/* Country Selector Toggle for Egypt & UAE */}
+        <div className="flex items-center justify-center mb-8 sm:mb-10">
+          <div className="inline-flex items-center p-1.5 bg-bg-surface border border-border-medium rounded-2xl shadow-soft">
+            <button
+              type="button"
+              onClick={() => setSelectedCountry("egypt")}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 ${
+                selectedCountry === "egypt"
+                  ? "bg-brand-primary text-text-inverted shadow-soft"
+                  : "text-text-body hover:text-brand-primary"
+              }`}
+            >
+              <span>🇪🇬</span>
+              <span>مصر (250 ج.م / شهرياً للمادة)</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setSelectedCountry("uae")}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 ${
+                selectedCountry === "uae"
+                  ? "bg-brand-primary text-text-inverted shadow-soft"
+                  : "text-text-body hover:text-brand-primary"
+              }`}
+            >
+              <span>🇦🇪</span>
+              <span>الإمارات (30 - 50 درهم / للحصة)</span>
+            </button>
+          </div>
         </div>
 
         {/* Pricing Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-8 items-stretch mb-8 sm:mb-10">
-          {SAAY_PRICING_PLANS.map((plan) => {
+          {currentPlans.map((plan) => {
             const isPopular = plan.popular;
             return (
               <div
@@ -78,12 +113,12 @@ export default function PricingPlans({ onSelectPlan }: PricingPlansProps) {
                       </span>
                       {plan.sessionsCount > 1 && (
                         <span className="text-[10px] sm:text-xs text-text-muted font-normal whitespace-nowrap">
-                          ({plan.pricePerSession} {plan.currency} / للحصة)
+                          (حوالي {plan.pricePerSession} {plan.currency} / للحصة)
                         </span>
                       )}
                     </div>
                     <span className="text-[11px] sm:text-xs text-brand-green font-bold mt-1 block">
-                      عدد الحصص: {plan.sessionsCount} {plan.sessionsCount === 1 ? "حصة فردية" : "حصص فردية"}
+                      عدد الحصص: {plan.sessionsCount} {plan.sessionsCount === 1 ? "حصة استكشافية" : "حصص تفاعلية للمادة"}
                     </span>
                   </div>
 
@@ -137,8 +172,8 @@ export default function PricingPlans({ onSelectPlan }: PricingPlansProps) {
               <Lock size={18} />
             </div>
             <div>
-              <div className="text-xs font-bold text-text-heading whitespace-nowrap">دفع آمن ومشفر بالكامل</div>
-              <div className="text-[10px] sm:text-[11px] text-text-muted whitespace-nowrap">مدى، فيزا، ماستركارد، و Apple Pay</div>
+              <div className="text-xs font-bold text-text-heading whitespace-nowrap">طرق دفع محلية آمنة</div>
+              <div className="text-[10px] sm:text-[11px] text-text-muted whitespace-nowrap">فودافون كاش، إنستاباي، فيزا، وماستركارد</div>
             </div>
           </div>
 

@@ -22,6 +22,22 @@ export interface Subject {
   iconName: string;
 }
 
+export interface SubjectGroup {
+  id: string;
+  subjectName: string;
+  curriculumId: string;
+  curriculumName: string;
+  grade: string;
+  countryId: "egypt" | "uae";
+  sessionsPerMonth: number;
+  monthlyPrice: number;
+  pricePerSession: number;
+  currency: string;
+  schedule: string;
+  seatsStatus: string;
+  features: string[];
+}
+
 export interface Teacher {
   id: string;
   name: string;

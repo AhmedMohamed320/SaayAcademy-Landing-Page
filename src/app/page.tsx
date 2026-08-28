@@ -17,19 +17,19 @@ import FloatingWhatsApp from "@/components/layout/FloatingWhatsApp";
 import ConciergeModal from "@/components/sections/ConciergeModal";
 import BookingModal from "@/components/sections/BookingModal";
 import TeacherModal from "@/components/sections/TeacherModal";
-import { Teacher, PricingPlan } from "@/types";
+import { SubjectGroup, PricingPlan } from "@/types";
 import { SAAY_PRICING_PLANS } from "@/lib/constants";
 
 export default function Home() {
   const [isConciergeOpen, setIsConciergeOpen] = useState(false);
   const [isTeacherModalOpen, setIsTeacherModalOpen] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
-  const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
+  const [selectedGroup, setSelectedGroup] = useState<SubjectGroup | null>(null);
   const [selectedPlan, setSelectedPlan] = useState<PricingPlan | null>(null);
 
   // Search parameters from Hero to pass down to AcademicSelector
   const [searchParams, setSearchParams] = useState({
-    country: "all",
+    country: "egypt",
     curriculum: "all",
     subject: "all",
   });
@@ -38,21 +38,21 @@ export default function Home() {
     setSearchParams({ country, curriculum, subject });
   };
 
-  const handleSelectTeacherForBooking = (teacher: Teacher) => {
-    setSelectedTeacher(teacher);
+  const handleSelectGroupForBooking = (group: SubjectGroup) => {
+    setSelectedGroup(group);
     setSelectedPlan(null);
     setIsBookingOpen(true);
   };
 
   const handleSelectPlan = (plan: PricingPlan) => {
     setSelectedPlan(plan);
-    setSelectedTeacher(null);
+    setSelectedGroup(null);
     setIsBookingOpen(true);
   };
 
   const handleOpenGeneralBooking = () => {
     setSelectedPlan(SAAY_PRICING_PLANS[0]);
-    setSelectedTeacher(null);
+    setSelectedGroup(null);
     setIsBookingOpen(true);
   };
 
@@ -70,19 +70,19 @@ export default function Home() {
         onOpenConcierge={() => setIsConciergeOpen(true)}
       />
 
-      {/* Interactive Academic Match Finder (Country, Curriculum, Subject, Verified Teachers) */}
+      {/* Interactive Subject Groups Matcher */}
       <AcademicSelector
         initialCountry={searchParams.country}
         initialCurriculum={searchParams.curriculum}
         initialSubject={searchParams.subject}
         onOpenConcierge={() => setIsConciergeOpen(true)}
-        onSelectTeacherForBooking={handleSelectTeacherForBooking}
+        onSelectGroupForBooking={handleSelectGroupForBooking}
       />
 
-      {/* 6 Value Pillars of Academic Excellence in Saay */}
+      {/* 4 Core Value Pillars of Saay */}
       <ValuePillars />
 
-      {/* How it Works (3-Step North Star Journey for Student and Teacher) */}
+      {/* How it Works (3-Step Journey for Student and Teacher) */}
       <HowItWorks />
 
       {/* Parent Experience & Peace of Mind Showcase */}
@@ -112,7 +112,7 @@ export default function Home() {
         onOpenTeacherModal={() => setIsTeacherModalOpen(true)}
       />
 
-      {/* Floating WhatsApp Quick Chat (Principle 127) */}
+      {/* Floating WhatsApp Quick Chat */}
       <FloatingWhatsApp />
 
       {/* Interactive Modals */}
@@ -124,7 +124,7 @@ export default function Home() {
       <BookingModal
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}
-        teacher={selectedTeacher}
+        group={selectedGroup}
         plan={selectedPlan}
       />
 

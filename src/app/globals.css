@@ -157,6 +157,23 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
+  line-height: 1.45;
+}
+
+h1 {
+  line-height: 1.4;
+}
+
+h2 {
+  line-height: 1.45;
+}
+
+h3 {
+  line-height: 1.45;
+}
+
+p {
+  line-height: 1.75;
 }
 
 /* Glassmorphism utilities */

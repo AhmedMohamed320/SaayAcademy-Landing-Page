@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { Sparkles, ShieldCheck, ArrowLeft, Headphones } from "@/components/icons/AnimatedIcons";
+import { Sparkles, ShieldCheck, Headphones } from "@/components/icons/AnimatedIcons";
 import { SAAY_COUNTRIES, SAAY_CURRICULA } from "@/lib/constants";
 
 interface FooterProps {
@@ -27,12 +27,11 @@ export default function Footer({ onOpenConcierge, onOpenTeacherModal }: FooterPr
               />
             </div>
             <p className="text-xs sm:text-sm text-text-inverted-muted leading-relaxed">
-              أكاديمية سَعى هي المنصة التعليمية الرائدة للدروس الفردية الخاصة 1-on-1، تربط الطلاب بنخبة 5% من المعلمين
-              المعتمدين لكافة المناهج الوطنية والدولية بأعلى درجات الدقة والأمان.
+              أكاديمية سَعى هي المنصة التعليمية للمجموعات الدراسية لمناهج مصر والإمارات، تربط الطلاب بمعلمين مصريين مؤهلين ومختبرين بعناية، مع تسجيل كامل للحصص وتنسيق ومتابعة مستمرة.
             </p>
             <div className="pt-1 flex items-center gap-1.5 text-xs text-brand-green font-semibold">
               <ShieldCheck size={15} />
-              <span>منهجية معتمدة ومسجلة رسمياً</span>
+              <span>منصة تعليمية موثوقة ومضمونة</span>
             </div>
           </div>
 

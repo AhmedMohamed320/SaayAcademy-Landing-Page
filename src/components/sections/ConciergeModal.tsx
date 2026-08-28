@@ -55,7 +55,7 @@ export default function ConciergeModal({ isOpen, onClose }: ConciergeModalProps)
               <h3 className="text-sm sm:text-base md:text-lg font-bold text-text-heading font-heading">
                 طلب منسق أكاديمي / منهج مخصص
               </h3>
-              <p className="text-[10px] sm:text-xs text-text-muted">سنوفر لك المعلم المعتمد والمناسب لمنهجك ودولتك فوراً</p>
+              <p className="text-[10px] sm:text-xs text-text-muted">سنوفر لك المجموعة الدراسية والمعلم المؤهل لمنهجك ودولتك فوراً</p>
             </div>
           </div>
 

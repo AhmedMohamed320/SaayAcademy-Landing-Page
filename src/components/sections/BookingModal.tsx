@@ -2,42 +2,32 @@
 
 import React, { useState, useMemo } from "react";
 import confetti from "canvas-confetti";
-import { X, ShieldCheck, CheckCircle2, ArrowLeft, Star, CalendarCheck, Lock } from "@/components/icons/AnimatedIcons";
-import { Teacher, PricingPlan } from "@/types";
+import { X, ShieldCheck, CheckCircle2, ArrowLeft, CalendarCheck, Lock, BookOpen } from "@/components/icons/AnimatedIcons";
+import { SubjectGroup, PricingPlan } from "@/types";
 import CustomSelect, { OptionItem } from "@/components/ui/CustomSelect";
 
 interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
-  teacher: Teacher | null;
+  group: SubjectGroup | null;
   plan: PricingPlan | null;
 }
 
-export default function BookingModal({ isOpen, onClose, teacher, plan }: BookingModalProps) {
+export default function BookingModal({ isOpen, onClose, group, plan }: BookingModalProps) {
   const [formData, setFormData] = useState({
     studentName: "",
     parentPhone: "",
-    selectedDay: "اليوم",
-    selectedTime: "6:00 م - 7:00 م",
+    grade: "",
+    selectedTime: "مسائي (6:00 م - 9:00 م)",
     paymentMethod: "card",
   });
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const dayOptions: OptionItem[] = useMemo(
-    () => [
-      { value: "اليوم", label: "اليوم المتاح" },
-      { value: "غداً", label: "غداً" },
-      { value: "خلال الأسبوع", label: "خلال هذا الأسبوع" },
-    ],
-    []
-  );
-
   const timeOptions: OptionItem[] = useMemo(
     () => [
-      { value: "4:00 م - 5:00 م", label: "4:00 م - 5:00 م" },
-      { value: "5:30 م - 6:30 م", label: "5:30 م - 6:30 م" },
-      { value: "7:00 م - 8:00 م", label: "7:00 م - 8:00 م" },
-      { value: "8:30 م - 9:30 م", label: "8:30 م - 9:30 م" },
+      { value: "مسائي (5:00 م - 7:00 م)", label: "الفترة المسائية الأولى (5:00 م - 7:00 م)" },
+      { value: "مسائي (7:00 م - 9:00 م)", label: "الفترة المسائية الثانية (7:00 م - 9:00 م)" },
+      { value: "مرن", label: "مواعيد مرنة يحددها المنسق" },
     ],
     []
   );
@@ -58,145 +48,145 @@ export default function BookingModal({ isOpen, onClose, teacher, plan }: Booking
     }
   };
 
-  const handleFinish = () => {
+  const handleModalClose = () => {
     setIsSuccess(false);
     onClose();
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-text-heading/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-bg-surface rounded-2xl sm:rounded-3xl border border-border-light shadow-card w-full max-w-lg overflow-hidden relative max-h-[92vh] flex flex-col">
-        {/* Header */}
-        <div className="p-4 sm:p-5 bg-brand-green-light/40 border-b border-border-light flex items-center justify-between gap-2">
-          <div>
-            <h3 className="text-sm sm:text-base md:text-lg font-bold text-text-heading font-heading">
-              {plan ? `تأكيد حجز ${plan.name}` : `حجز حصة مع ${teacher?.name || "المعلم"}`}
-            </h3>
-            <p className="text-[11px] sm:text-xs text-text-muted">حصة فردية 1-on-1 مع ضمان استرداد الرضا 100%</p>
-          </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-brand-primary/80 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="relative w-full max-w-lg bg-bg-surface rounded-2xl sm:rounded-3xl border border-border-light shadow-card p-5 sm:p-7 max-h-[92vh] overflow-y-auto">
+        {/* Close Button */}
+        <button
+          type="button"
+          onClick={handleModalClose}
+          className="absolute top-4 left-4 p-2 rounded-xl text-text-muted hover:text-text-heading hover:bg-bg-surface-subtle transition-colors"
+        >
+          <X size={18} />
+        </button>
 
-          <button
-            onClick={onClose}
-            className="p-1.5 sm:p-2 rounded-xl text-text-muted hover:text-text-heading hover:bg-bg-surface transition-colors flex-shrink-0"
-          >
-            <X size={18} />
-          </button>
-        </div>
-
-        {/* Content */}
-        <div className="p-4 sm:p-6 overflow-y-auto">
-          {isSuccess ? (
-            <div className="py-6 sm:py-8 text-center">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 bg-status-success/20 text-status-success rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                <CheckCircle2 size={32} />
-              </div>
-              <h4 className="text-lg sm:text-xl font-bold text-text-heading font-heading mb-1.5">
-                تهانينا! تم تأكيد حجز الحصة بنجاح 🎉
-              </h4>
-              <p className="text-xs sm:text-sm text-text-body mb-5 max-w-xs mx-auto leading-relaxed">
-                تم إرسال تفاصيل الموعد ورابط القاعة التفاعلية إلى رقم الواتساب{" "}
-                <strong className="text-brand-primary font-bold">{formData.parentPhone || "المسجل"}</strong>.
-              </p>
-              <button
-                type="button"
-                onClick={handleFinish}
-                className="inline-flex items-center gap-2 bg-brand-primary hover:bg-brand-primary-hover text-text-inverted px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-soft"
-              >
-                <span>الانتقال للرئيسية</span>
-              </button>
+        {isSuccess ? (
+          /* Success Screen */
+          <div className="text-center py-6 sm:py-8 space-y-4">
+            <div className="h-16 w-16 bg-brand-green-light text-brand-green rounded-full flex items-center justify-center mx-auto shadow-soft">
+              <CheckCircle2 size={36} />
             </div>
-          ) : (
-            <form onSubmit={handleBooking} className="space-y-3.5 sm:space-y-4">
-              {/* Selected Target Summary Card */}
-              {teacher && (
-                <div className="bg-bg-page border border-border-light rounded-xl sm:rounded-2xl p-3 flex items-center gap-3">
-                  <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-brand-primary text-brand-green flex items-center justify-center font-heading font-bold text-xs border border-brand-green/30 shadow-soft flex-shrink-0">
-                    <span>{teacher.initials}</span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h5 className="text-xs sm:text-sm font-bold text-text-heading truncate">{teacher.name}</h5>
-                    <p className="text-[10px] sm:text-xs text-text-muted truncate">{teacher.title}</p>
-                    <span className="text-[11px] sm:text-xs font-bold text-brand-green mt-0.5 block">
-                      {teacher.hourlyRate} {teacher.currency} / للحصة
-                    </span>
-                  </div>
-                </div>
-              )}
+            <h3 className="text-xl sm:text-2xl font-bold text-text-heading font-heading">
+              تم استلام طلب حجزك بنجاح!
+            </h3>
+            <p className="text-xs sm:text-sm text-text-body max-w-sm mx-auto leading-relaxed">
+              سيتواصل معك المنسق الأكاديمي لسَعى عبر واتساب على الرقم (<strong>{formData.parentPhone}</strong>) لتأكيد الموعد وإرسال رابط الحصة.
+            </p>
+            <div className="bg-bg-page border border-border-light rounded-xl p-3.5 text-xs text-text-muted text-right space-y-1">
+              <div>• الطالب: <strong>{formData.studentName}</strong></div>
+              {group && <div>• المادة: <strong>{group.subjectName} ({group.monthlyPrice} {group.currency})</strong></div>}
+              {plan && <div>• الباقة: <strong>{plan.name} ({plan.totalPrice} {plan.currency})</strong></div>}
+            </div>
+            <button
+              type="button"
+              onClick={handleModalClose}
+              className="w-full py-3 bg-brand-primary text-text-inverted rounded-xl font-bold text-xs sm:text-sm shadow-soft hover:bg-brand-primary-hover transition-colors"
+            >
+              <span>العودة للرئيسية</span>
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleBooking} className="space-y-4 text-right">
+            {/* Modal Header */}
+            <div className="mb-2">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-green-light text-brand-primary text-[11px] font-bold mb-2">
+                <ShieldCheck size={14} className="text-brand-green" />
+                <span>حجز مباشر مع ضمان استرداد الرضا 100%</span>
+              </div>
+              <h3 className="text-lg sm:text-xl font-extrabold text-text-heading font-heading">
+                {group ? `حجز مجموعة: ${group.subjectName}` : plan ? `حجز: ${plan.name}` : "حجز الحصة الدراسية"}
+              </h3>
+            </div>
 
-              {plan && (
-                <div className="bg-bg-page border border-border-light rounded-xl sm:rounded-2xl p-3 flex items-center justify-between">
+            {/* Selected Target Summary Card */}
+            {group && (
+              <div className="bg-bg-page border border-border-light rounded-2xl p-3.5 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-xl bg-brand-primary text-brand-green flex items-center justify-center flex-shrink-0">
+                    <BookOpen size={18} />
+                  </div>
                   <div>
-                    <h5 className="text-xs sm:text-sm font-bold text-text-heading">{plan.name}</h5>
-                    <span className="text-[10px] sm:text-xs text-text-muted">{plan.sessionsCount} حصص فردية</span>
+                    <h5 className="text-xs sm:text-sm font-bold text-text-heading">{group.subjectName}</h5>
+                    <p className="text-[11px] text-text-muted">{group.curriculumName} • 8 حصص شهرياً</p>
                   </div>
-                  <span className="text-sm sm:text-base font-bold text-brand-green">
-                    {plan.totalPrice} {plan.currency}
-                  </span>
                 </div>
-              )}
-
-              {/* Form Inputs */}
-              <div>
-                <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1 text-right">اسم الطالب:</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="مثال: ريان محمد"
-                  value={formData.studentName}
-                  onChange={(e) => setFormData({ ...formData, studentName: e.target.value })}
-                  className="w-full bg-bg-surface border border-border-medium focus:border-brand-green rounded-xl px-3 py-2 text-xs sm:text-sm text-text-heading focus:outline-none"
-                />
+                <div className="text-left flex-shrink-0">
+                  <span className="text-xs sm:text-sm font-black text-brand-green block">
+                    {group.monthlyPrice} {group.currency}
+                  </span>
+                  <span className="text-[10px] text-text-muted">شهرياً للمادة</span>
+                </div>
               </div>
+            )}
 
-              <div>
-                <label className="block text-[11px] sm:text-xs font-bold text-text-heading mb-1 text-right">
-                  رقم الواتساب (لإرسال الموعد والتسجيل):
-                </label>
-                <input
-                  type="tel"
-                  required
-                  placeholder="01xxxxxxxxx أو +971xxxxxxxx"
-                  value={formData.parentPhone}
-                  onChange={(e) => setFormData({ ...formData, parentPhone: e.target.value })}
-                  className="w-full bg-bg-surface border border-border-medium focus:border-brand-green rounded-xl px-3 py-2 text-xs sm:text-sm text-text-heading focus:outline-none"
-                  dir="ltr"
-                />
+            {plan && (
+              <div className="bg-bg-page border border-border-light rounded-2xl p-3.5 flex items-center justify-between">
+                <div>
+                  <h5 className="text-xs sm:text-sm font-bold text-text-heading">{plan.name}</h5>
+                  <span className="text-[11px] text-text-muted">{plan.sessionsCount} حصص دراسية</span>
+                </div>
+                <span className="text-sm sm:text-base font-black text-brand-green">
+                  {plan.totalPrice} {plan.currency}
+                </span>
               </div>
+            )}
 
-              {/* Time Preference using CustomSelect */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                <CustomSelect
-                  label="اليوم المفضل:"
-                  value={formData.selectedDay}
-                  onChange={(val) => setFormData({ ...formData, selectedDay: val })}
-                  options={dayOptions}
-                />
+            {/* Form Inputs */}
+            <div>
+              <label className="block text-xs font-bold text-text-heading mb-1.5">اسم الطالب:</label>
+              <input
+                type="text"
+                required
+                placeholder="أدخل اسم الطالب ثلاثي"
+                value={formData.studentName}
+                onChange={(e) => setFormData({ ...formData, studentName: e.target.value })}
+                className="w-full h-11 px-3.5 rounded-xl border border-border-medium bg-bg-page text-text-heading text-xs sm:text-sm focus:outline-none focus:border-brand-green"
+              />
+            </div>
 
-                <CustomSelect
-                  label="الفترة الزمنية:"
-                  value={formData.selectedTime}
-                  onChange={(val) => setFormData({ ...formData, selectedTime: val })}
-                  options={timeOptions}
-                />
-              </div>
+            <div>
+              <label className="block text-xs font-bold text-text-heading mb-1.5">رقم واتساب ولي الأمر للتواصل والتنسيق:</label>
+              <input
+                type="tel"
+                required
+                dir="ltr"
+                placeholder="+20 1X XXXX XXXX / +971 5X XXX XXXX"
+                value={formData.parentPhone}
+                onChange={(e) => setFormData({ ...formData, parentPhone: e.target.value })}
+                className="w-full h-11 px-3.5 rounded-xl border border-border-medium bg-bg-page text-text-heading text-xs sm:text-sm focus:outline-none focus:border-brand-green text-right"
+              />
+            </div>
 
-              {/* Security & Guarantee Note */}
-              <div className="p-2.5 bg-brand-green-light border border-brand-green/20 rounded-xl flex items-center gap-2 text-[11px] sm:text-xs text-text-heading">
-                <ShieldCheck size={16} className="text-brand-green flex-shrink-0" />
-                <span>ضمان استرداد الرضا 100% للحصة الأولى.</span>
-              </div>
+            <div>
+              <CustomSelect
+                label="الفترة المفضلة للحصص:"
+                value={formData.selectedTime}
+                onChange={(val) => setFormData({ ...formData, selectedTime: val })}
+                options={timeOptions}
+              />
+            </div>
 
-              {/* Submit CTA */}
-              <button
-                type="submit"
-                className="w-full py-2.5 sm:py-3 bg-brand-primary hover:bg-brand-primary-hover text-text-inverted font-bold text-xs sm:text-sm rounded-xl shadow-soft transition-colors flex items-center justify-center gap-2"
-              >
-                <span>تأكيد الموعد واستلام رابط القاعة</span>
-                <ArrowLeft size={14} className="text-brand-green" />
-              </button>
-            </form>
-          )}
-        </div>
+            {/* Guarantees note */}
+            <div className="bg-brand-green-light/40 border border-brand-green/20 rounded-xl p-3 flex items-center gap-2 text-xs text-text-heading">
+              <Lock size={15} className="text-brand-green flex-shrink-0" />
+              <span>مستحقاتك ورسومك مضمونة بالكامل مع استرداد 100% إن لم تناسبك الحصة الأولى.</span>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="w-full py-3.5 bg-brand-green hover:bg-brand-green-hover text-brand-primary rounded-xl font-black text-xs sm:text-sm shadow-glow transition-all duration-200 flex items-center justify-center gap-2"
+            >
+              <span>تأكيد الحجز ومتابعة المنسق</span>
+              <ArrowLeft size={16} />
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );
