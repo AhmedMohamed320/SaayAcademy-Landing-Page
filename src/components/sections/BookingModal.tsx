@@ -82,13 +82,25 @@ export default function BookingModal({ isOpen, onClose, group, plan }: BookingMo
               {group && <div>• المادة: <strong>{group.subjectName} ({group.monthlyPrice} {group.currency})</strong></div>}
               {plan && <div>• الباقة: <strong>{plan.name} ({plan.totalPrice} {plan.currency})</strong></div>}
             </div>
-            <button
-              type="button"
-              onClick={handleModalClose}
-              className="w-full py-3 bg-brand-primary text-text-inverted rounded-xl font-bold text-xs sm:text-sm shadow-soft hover:bg-brand-primary-hover transition-colors"
-            >
-              <span>العودة للرئيسية</span>
-            </button>
+            <div className="flex flex-col sm:flex-row gap-2 pt-2">
+              <a
+                href={`https://wa.me/201097190466?text=${encodeURIComponent(
+                  `السلام عليكم، قمت بحجز ${group ? group.subjectName : plan?.name || "مادة دراسية"} للطالب (${formData.studentName}). أود تأكيد الموعد.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 bg-brand-green hover:bg-brand-green-hover text-brand-primary rounded-xl font-bold text-xs sm:text-sm shadow-soft transition-colors text-center inline-flex items-center justify-center gap-1.5"
+              >
+                <span>تواصل فوري عبر واتساب (+20 10 97190466)</span>
+              </a>
+              <button
+                type="button"
+                onClick={handleModalClose}
+                className="w-full sm:w-auto px-5 py-3 bg-bg-page border border-border-medium hover:bg-bg-surface-subtle text-text-heading rounded-xl font-bold text-xs sm:text-sm transition-colors"
+              >
+                <span>إغلاق</span>
+              </button>
+            </div>
           </div>
         ) : (
           <form onSubmit={handleBooking} className="space-y-4 text-right">

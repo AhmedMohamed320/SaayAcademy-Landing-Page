@@ -2,15 +2,15 @@
 
 import React, { useState } from "react";
 import { MessageSquare, X, Sparkles } from "@/components/icons/AnimatedIcons";
+import { SAAY_WHATSAPP_NUMBER } from "@/lib/constants";
 
 export default function FloatingWhatsApp() {
   const [hasDismissed, setHasDismissed] = useState(false);
 
-  const defaultPhone = "+966500000000";
   const defaultMessage = encodeURIComponent(
     "السلام عليكم، أود الاستفسار عن المجموعات الدراسية واشتراك المواد في أكاديمية سَعى."
   );
-  const whatsappUrl = `https://wa.me/${defaultPhone}?text=${defaultMessage}`;
+  const whatsappUrl = `https://wa.me/${SAAY_WHATSAPP_NUMBER}?text=${defaultMessage}`;
 
   return (
     <div className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-40 flex flex-col items-start gap-2 max-w-[calc(100vw-32px)]">
@@ -40,7 +40,7 @@ export default function FloatingWhatsApp() {
         target="_blank"
         rel="noopener noreferrer"
         className="group flex items-center gap-2 bg-brand-green hover:bg-brand-green-hover text-brand-primary font-black py-2.5 px-4 sm:py-3 sm:px-4.5 rounded-full shadow-glow hover:scale-105 transition-all duration-200"
-        aria-label="تواصل معنا عبر واتساب"
+        aria-label="تواصل معنا عبر واتساب +20 10 97190466"
       >
         <div className="relative flex items-center justify-center">
           <MessageSquare size={18} fill="currentColor" />

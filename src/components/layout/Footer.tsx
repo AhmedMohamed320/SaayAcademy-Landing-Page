@@ -2,8 +2,14 @@
 
 import React from "react";
 import Image from "next/image";
-import { Sparkles, ShieldCheck, Headphones } from "@/components/icons/AnimatedIcons";
-import { SAAY_COUNTRIES, SAAY_CURRICULA } from "@/lib/constants";
+import { Sparkles, ShieldCheck, Headphones, Phone } from "@/components/icons/AnimatedIcons";
+import {
+  SAAY_COUNTRIES,
+  SAAY_CURRICULA,
+  SAAY_CONTACT_PHONE,
+  SAAY_WHATSAPP_URL,
+  SAAY_CONTACT_EMAIL,
+} from "@/lib/constants";
 
 interface FooterProps {
   onOpenConcierge?: () => void;
@@ -113,11 +119,21 @@ export default function Footer({ onOpenConcierge, onOpenTeacherModal }: FooterPr
               </li>
             </ul>
 
-            <div className="bg-bg-dark-card p-3 rounded-2xl border border-border-dark-glass text-xs">
-              <span className="text-text-inverted-muted block mb-0.5 text-[11px]">تواصل مع الدعم الأكاديمي:</span>
-              <div className="flex items-center gap-1.5 text-brand-green font-mono font-bold text-xs sm:text-sm">
-                <Headphones size={14} />
-                <span>support@saay.academy</span>
+            <div className="bg-bg-dark-card p-3.5 rounded-2xl border border-border-dark-glass text-xs space-y-2">
+              <span className="text-text-inverted-muted block text-[11px]">تواصل مع المنسق الأكاديمي:</span>
+              <a
+                href={SAAY_WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-brand-green font-mono font-bold text-xs sm:text-sm hover:underline"
+                dir="ltr"
+              >
+                <Phone size={13} className="flex-shrink-0" />
+                <span>{SAAY_CONTACT_PHONE}</span>
+              </a>
+              <div className="flex items-center gap-1.5 text-text-inverted-muted font-mono text-[11px]">
+                <Headphones size={13} className="text-brand-green flex-shrink-0" />
+                <span>{SAAY_CONTACT_EMAIL}</span>
               </div>
             </div>
           </div>

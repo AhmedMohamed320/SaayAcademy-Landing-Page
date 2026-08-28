@@ -81,13 +81,25 @@ export default function ConciergeModal({ isOpen, onClose }: ConciergeModalProps)
                 يقوم فريق المنسقين الأكاديميين بمراجعة تفاصيل منهجك وسيتواصل معك عبر واتساب على الرقم{" "}
                 <strong className="text-brand-primary font-bold">{formData.phone || "المسجل"}</strong> خلال أقل من ساعتين.
               </p>
-              <button
-                type="button"
-                onClick={handleReset}
-                className="inline-flex items-center gap-2 bg-brand-primary hover:bg-brand-primary-hover text-text-inverted px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-soft"
-              >
-                <span>تم، حسناً</span>
-              </button>
+              <div className="flex flex-col sm:flex-row gap-2 justify-center">
+                <a
+                  href={`https://wa.me/201097190466?text=${encodeURIComponent(
+                    `السلام عليكم، قمت بتقديم طلب منسق أكاديمي في سَعى باسم (${formData.name}).`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 bg-brand-green hover:bg-brand-green-hover text-brand-primary px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-soft transition-colors text-center"
+                >
+                  <span>تواصل فوري عبر واتساب</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={handleReset}
+                  className="inline-flex items-center justify-center gap-2 bg-bg-page border border-border-medium hover:bg-bg-surface-subtle text-text-heading px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-soft transition-colors"
+                >
+                  <span>إغلاق</span>
+                </button>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-3.5">

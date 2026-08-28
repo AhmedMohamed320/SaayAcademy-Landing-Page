@@ -1,5 +1,10 @@
 import { Country, Curriculum, Subject, SubjectGroup, PricingPlan, Testimonial, FAQItem } from "@/types";
 
+export const SAAY_CONTACT_PHONE = "+20 10 97190466";
+export const SAAY_WHATSAPP_NUMBER = "201097190466";
+export const SAAY_WHATSAPP_URL = "https://wa.me/201097190466";
+export const SAAY_CONTACT_EMAIL = "support@saay.academy";
+
 export const SAAY_COUNTRIES: Country[] = [
   {
     id: "egypt",
