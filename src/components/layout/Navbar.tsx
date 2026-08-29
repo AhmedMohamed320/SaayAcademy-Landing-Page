@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Menu, X, ArrowLeft, GraduationCap, Sparkles } from "@/components/icons/AnimatedIcons";
+import { Menu, X, ArrowLeft, GraduationCap, Sparkles, Gift } from "@/components/icons/AnimatedIcons";
 
 interface NavbarProps {
   onOpenConcierge?: () => void;
@@ -21,13 +21,11 @@ export default function Navbar({ onOpenConcierge, onOpenTeacherModal }: NavbarPr
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Simplified and smart navigation links with concise, single-phrase labels
+  // Focused navigation links for streamlined page
   const navLinks = [
-    { label: "المناهج", href: "#academic-selector" },
-    { label: "عن سَعى", href: "#why-saay" },
-    { label: "كيف نعمل", href: "#how-it-works" },
-    { label: "أولياء الأمور", href: "#parents" },
-    { label: "الأسعار", href: "#pricing" },
+    { label: "كيف تعمل سَعى", href: "#how-it-works" },
+    { label: "الأسعار والباقات", href: "#pricing" },
+    { label: "آراء المشتركين", href: "#testimonials" },
     { label: "الأسئلة الشائعة", href: "#faq" },
   ];
 
@@ -54,13 +52,13 @@ export default function Navbar({ onOpenConcierge, onOpenTeacherModal }: NavbarPr
           </div>
         </a>
 
-        {/* Desktop Navigation Links - Single line, non-wrapping on Dark Background */}
-        <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 flex-shrink-0">
+        {/* Desktop Navigation Links */}
+        <nav className="hidden lg:flex items-center gap-1 xl:gap-2 flex-shrink-0">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="px-3 py-1.5 text-xs xl:text-sm font-medium text-text-inverted-muted hover:text-brand-green hover:bg-bg-dark-card rounded-xl transition-all duration-200 whitespace-nowrap"
+              className="px-3.5 py-1.5 text-xs xl:text-sm font-medium text-text-inverted-muted hover:text-brand-green hover:bg-bg-dark-card rounded-xl transition-all duration-200 whitespace-nowrap"
             >
               {link.label}
             </a>
@@ -69,7 +67,7 @@ export default function Navbar({ onOpenConcierge, onOpenTeacherModal }: NavbarPr
 
         {/* Action Buttons - Desktop */}
         <div className="hidden sm:flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
-          {onOpenTeacherModal ? (
+          {onOpenTeacherModal && (
             <button
               type="button"
               onClick={onOpenTeacherModal}
@@ -78,21 +76,14 @@ export default function Navbar({ onOpenConcierge, onOpenTeacherModal }: NavbarPr
               <GraduationCap size={15} className="text-brand-green" />
               <span>انضم كمعلم</span>
             </button>
-          ) : (
-            <a
-              href="#teachers"
-              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-text-inverted hover:text-brand-green bg-bg-dark-card border border-border-dark-glass hover:border-brand-green rounded-xl transition-all duration-200 whitespace-nowrap shadow-soft"
-            >
-              <GraduationCap size={15} className="text-brand-green" />
-              <span>انضم كمعلم</span>
-            </a>
           )}
 
           <a
             href="#pricing"
             className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 text-xs md:text-sm font-black text-brand-primary bg-brand-green hover:bg-brand-green-hover border border-brand-green rounded-xl shadow-glow hover:shadow-hover hover:-translate-y-0.5 transition-all duration-200 whitespace-nowrap group"
           >
-            <span>احجز حصتك الآن</span>
+            <Gift size={15} />
+            <span>احجز حصتك مجاناً</span>
             <ArrowLeft size={15} className="transition-transform duration-300 group-hover:-translate-x-1" />
           </a>
         </div>
@@ -107,7 +98,7 @@ export default function Navbar({ onOpenConcierge, onOpenTeacherModal }: NavbarPr
         </button>
       </div>
 
-      {/* Mobile Dropdown Drawer - Dark background attached below header */}
+      {/* Mobile Dropdown Drawer */}
       {mobileMenuOpen && (
         <div className="lg:hidden absolute inset-x-0 top-full bg-brand-primary border-b border-border-dark-glass shadow-card p-4 animate-in slide-in-from-top-2 duration-200 max-h-[80vh] overflow-y-auto z-50 text-text-inverted">
           <nav className="flex flex-col gap-1">
@@ -123,28 +114,27 @@ export default function Navbar({ onOpenConcierge, onOpenTeacherModal }: NavbarPr
             ))}
 
             <div className="pt-3 mt-2 border-t border-border-dark-glass flex flex-col gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  if (onOpenTeacherModal) onOpenTeacherModal();
-                  else {
-                    const el = document.getElementById("teachers");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
-                className="w-full flex items-center justify-center gap-2 py-2.5 text-xs font-bold text-text-inverted bg-bg-dark-card border border-border-dark-glass hover:border-brand-green rounded-xl whitespace-nowrap"
-              >
-                <GraduationCap size={16} className="text-brand-green" />
-                <span>انضم كمعلم في سَعى</span>
-              </button>
+              {onOpenTeacherModal && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenTeacherModal();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 text-xs font-bold text-text-inverted bg-bg-dark-card border border-border-dark-glass hover:border-brand-green rounded-xl whitespace-nowrap"
+                >
+                  <GraduationCap size={16} className="text-brand-green" />
+                  <span>انضم كمعلم في سَعى</span>
+                </button>
+              )}
 
               <a
                 href="#pricing"
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full flex items-center justify-center gap-2 py-2.5 text-xs font-black text-brand-primary bg-brand-green hover:bg-brand-green-hover rounded-xl shadow-glow whitespace-nowrap"
               >
-                <span>احجز حصتك الاستكشافية</span>
+                <Gift size={16} />
+                <span>احجز حصتك الاستكشافية مجاناً</span>
                 <ArrowLeft size={16} />
               </a>
 
@@ -158,7 +148,7 @@ export default function Navbar({ onOpenConcierge, onOpenTeacherModal }: NavbarPr
                   className="w-full flex items-center justify-center gap-1.5 py-2 text-[11px] font-semibold text-text-inverted-muted hover:text-brand-green whitespace-nowrap"
                 >
                   <Sparkles size={13} className="text-brand-gold" />
-                  <span>طلب منهج أو دولة غير مدرجة</span>
+                  <span>طلب منهج أو استشارة أكاديمية</span>
                 </button>
               )}
             </div>

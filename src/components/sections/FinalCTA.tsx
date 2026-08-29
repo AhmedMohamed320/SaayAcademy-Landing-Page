@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Sparkles, ArrowLeft, ShieldCheck, MessageSquare } from "@/components/icons/AnimatedIcons";
+import { Sparkles, ArrowLeft, ShieldCheck, MessageSquare, Gift } from "@/components/icons/AnimatedIcons";
 
 interface FinalCTAProps {
   onOpenBooking: () => void;
@@ -29,8 +29,7 @@ export default function FinalCTA({ onOpenBooking, onOpenConcierge }: FinalCTAPro
         </h2>
 
         <p className="text-xs sm:text-sm md:text-base text-text-inverted-muted max-w-2xl mx-auto mb-8 leading-[1.8]">
-          انضم إلى مجتمع العائلات التي اختارت الجودة والأمان الأكاديمي. احجز الحصة الاستكشافية الأولى لابنك مع ضمان
-          الرضا التام واسترداد الرسوم إن لم تنل إعجابك.
+          انضم إلى مجتمع العائلات التي اختارت الجودة والأمان الأكاديمي في مصر والإمارات. احجز الحصة الاستكشافية الأولى لابنك <strong>مجاناً بالكامل</strong> بدون أي التزام مالي.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -39,7 +38,8 @@ export default function FinalCTA({ onOpenBooking, onOpenConcierge }: FinalCTAPro
             onClick={onOpenBooking}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-green hover:bg-brand-green-hover text-brand-primary px-7 py-3.5 rounded-xl sm:rounded-2xl font-black text-xs sm:text-sm shadow-glow hover:shadow-hover transition-all duration-200 whitespace-nowrap"
           >
-            <span>احجز الحصة الاستكشافية الآن</span>
+            <Gift size={16} />
+            <span>احجز الحصة الاستكشافية مجاناً</span>
             <ArrowLeft size={15} />
           </button>
 
@@ -56,7 +56,7 @@ export default function FinalCTA({ onOpenBooking, onOpenConcierge }: FinalCTAPro
         {/* Guarantees footnote */}
         <div className="mt-8 flex items-center justify-center gap-2 text-xs text-text-inverted-muted text-center flex-wrap leading-relaxed">
           <ShieldCheck size={15} className="text-brand-green flex-shrink-0" />
-          <span>ضمان استرداد الرضا 100% • لا التزامات طويلة الأجل • بدون رسوم خفية</span>
+          <span>حصة أولى مجانية • ضمان استرداد الرضا 100% • لا التزامات طويلة الأجل</span>
         </div>
       </div>
     </section>

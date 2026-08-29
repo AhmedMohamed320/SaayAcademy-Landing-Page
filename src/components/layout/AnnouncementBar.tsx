@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Sparkles, ArrowLeft } from "@/components/icons/AnimatedIcons";
+import { Sparkles, ArrowLeft, Gift } from "@/components/icons/AnimatedIcons";
 
 export default function AnnouncementBar() {
   return (
@@ -14,8 +14,8 @@ export default function AnnouncementBar() {
           </span>
           <span className="flex items-center gap-1 font-heading leading-tight">
             <Sparkles size={13} className="text-brand-gold flex-shrink-0" />
-            <strong className="text-brand-gold font-bold">بدء التسجيل:</strong>
-            <span>خصم 40% على الحصة الاستكشافية الأولى مع ضمان الرضا 100%.</span>
+            <strong className="text-brand-gold font-bold">عرض خاص:</strong>
+            <span>احجز الحصة الاستكشافية الأولى مجاناً بالكامل لتجربة الشرح مع ضمان الرضا 100%.</span>
           </span>
         </div>
 
@@ -23,7 +23,8 @@ export default function AnnouncementBar() {
           href="#pricing"
           className="hidden sm:inline-flex items-center gap-1 text-brand-gold hover:text-text-inverted transition-colors duration-200 underline-offset-4 hover:underline font-semibold flex-shrink-0 whitespace-nowrap"
         >
-          <span>احجز تجربتك</span>
+          <Gift size={13} />
+          <span>احجز مجاناً</span>
           <ArrowLeft size={13} />
         </a>
       </div>

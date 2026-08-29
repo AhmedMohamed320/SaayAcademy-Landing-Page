@@ -37,7 +37,7 @@ export default function Footer({ onOpenConcierge, onOpenTeacherModal }: FooterPr
             </p>
             <div className="pt-1 flex items-center gap-1.5 text-xs text-brand-green font-semibold">
               <ShieldCheck size={15} />
-              <span>منصة تعليمية موثوقة ومضمونة</span>
+              <span>منصة تعليمية موثوقة ومضمونة 100%</span>
             </div>
           </div>
 
@@ -49,7 +49,7 @@ export default function Footer({ onOpenConcierge, onOpenTeacherModal }: FooterPr
             <ul className="space-y-1.5 sm:space-y-2 text-xs text-text-inverted-muted">
               {SAAY_CURRICULA.map((c) => (
                 <li key={c.id}>
-                  <a href="#academic-selector" className="hover:text-brand-green transition-colors">
+                  <a href="#pricing" className="hover:text-brand-green transition-colors">
                     {c.name}
                   </a>
                 </li>
@@ -61,7 +61,7 @@ export default function Footer({ onOpenConcierge, onOpenTeacherModal }: FooterPr
                   className="text-brand-green hover:underline inline-flex items-center gap-1 font-semibold"
                 >
                   <Sparkles size={12} />
-                  <span>طلب منهج مخصص غير مدرج</span>
+                  <span>طلب منهج مخصص أو استشارة</span>
                 </button>
               </li>
             </ul>
@@ -70,7 +70,7 @@ export default function Footer({ onOpenConcierge, onOpenTeacherModal }: FooterPr
           {/* Supported Countries Column */}
           <div className="lg:col-span-2">
             <h4 className="text-xs sm:text-sm font-bold text-text-inverted font-heading mb-2.5 sm:mb-3">
-              التغطية الجغرافية
+              التغطية الحالية
             </h4>
             <ul className="grid grid-cols-2 sm:grid-cols-1 gap-1.5 sm:gap-2 text-xs text-text-inverted-muted">
               {SAAY_COUNTRIES.map((c) => (
@@ -82,20 +82,15 @@ export default function Footer({ onOpenConcierge, onOpenTeacherModal }: FooterPr
             </ul>
           </div>
 
-          {/* Quick Links & Teachers Column */}
+          {/* Quick Links & Contact Column */}
           <div className="lg:col-span-3">
             <h4 className="text-xs sm:text-sm font-bold text-text-inverted font-heading mb-2.5 sm:mb-3">
               روابط سريعة والدعم
             </h4>
             <ul className="space-y-1.5 sm:space-y-2 text-xs text-text-inverted-muted mb-3 sm:mb-4">
               <li>
-                <a href="#why-saay" className="hover:text-brand-green transition-colors">
-                  عن سَعى (ركائز الجودة)
-                </a>
-              </li>
-              <li>
-                <a href="#parents" className="hover:text-brand-green transition-colors">
-                  بوابة أولياء الأمور
+                <a href="#how-it-works" className="hover:text-brand-green transition-colors">
+                  كيف تبدأ الدراسة معنا
                 </a>
               </li>
               <li>
@@ -104,19 +99,26 @@ export default function Footer({ onOpenConcierge, onOpenTeacherModal }: FooterPr
                 </a>
               </li>
               <li>
+                <a href="#testimonials" className="hover:text-brand-green transition-colors">
+                  آراء وتجارب المشتركين
+                </a>
+              </li>
+              <li>
                 <a href="#faq" className="hover:text-brand-green transition-colors">
                   الأسئلة الشائعة
                 </a>
               </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={onOpenTeacherModal}
-                  className="text-brand-green font-bold hover:underline"
-                >
-                  انضم كمعلم في سَعى
-                </button>
-              </li>
+              {onOpenTeacherModal && (
+                <li>
+                  <button
+                    type="button"
+                    onClick={onOpenTeacherModal}
+                    className="text-brand-green font-bold hover:underline"
+                  >
+                    انضم كمعلم في سَعى
+                  </button>
+                </li>
+              )}
             </ul>
 
             <div className="bg-bg-dark-card p-3.5 rounded-2xl border border-border-dark-glass text-xs space-y-2">

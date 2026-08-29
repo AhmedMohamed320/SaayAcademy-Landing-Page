@@ -9,6 +9,7 @@ import {
   ArrowLeft,
   BadgePercent,
   Lock,
+  Gift,
 } from "@/components/icons/AnimatedIcons";
 import { SAAY_PRICING_PLANS_EG, SAAY_PRICING_PLANS_AE } from "@/lib/constants";
 import { PricingPlan } from "@/types";
@@ -23,7 +24,7 @@ export default function PricingPlans({ onSelectPlan }: PricingPlansProps) {
   const currentPlans = selectedCountry === "egypt" ? SAAY_PRICING_PLANS_EG : SAAY_PRICING_PLANS_AE;
 
   return (
-    <section id="pricing" className="py-10 sm:py-16 md:py-20 bg-bg-page relative overflow-hidden">
+    <section id="pricing" className="py-12 sm:py-16 md:py-20 bg-bg-page relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
@@ -52,7 +53,7 @@ export default function PricingPlans({ onSelectPlan }: PricingPlansProps) {
               }`}
             >
               <span>🇪🇬</span>
-              <span>مصر (250 ج.م / شهرياً للمادة)</span>
+              <span>مصر (300 ج.م / شهرياً للمادة)</span>
             </button>
 
             <button
@@ -74,20 +75,31 @@ export default function PricingPlans({ onSelectPlan }: PricingPlansProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-8 items-stretch mb-8 sm:mb-10">
           {currentPlans.map((plan) => {
             const isPopular = plan.popular;
+            const isFree = plan.totalPrice === 0;
+
             return (
               <div
                 key={plan.id}
                 className={`relative rounded-2xl sm:rounded-3xl p-5 sm:p-7 flex flex-col justify-between transition-all duration-300 ${
                   isPopular
                     ? "bg-bg-surface border-2 border-brand-green shadow-card scale-100 md:scale-105 z-10"
+                    : isFree
+                    ? "bg-bg-surface border border-brand-green/40 shadow-soft hover:shadow-hover"
                     : "bg-bg-surface border border-border-light shadow-soft hover:shadow-hover"
                 }`}
               >
-                {/* Popular Ribbon */}
+                {/* Popular or Free Ribbon */}
                 {isPopular && (
                   <div className="absolute -top-3 right-1/2 translate-x-1/2 bg-brand-green text-brand-primary text-[11px] sm:text-xs font-black py-0.5 sm:py-1 px-3.5 sm:px-4 rounded-full shadow-soft flex items-center gap-1 whitespace-nowrap">
                     <Sparkles size={12} className="text-brand-primary" />
                     <span>{plan.badge || "الباقة الأكثر طلباً"}</span>
+                  </div>
+                )}
+
+                {isFree && (
+                  <div className="absolute -top-3 right-1/2 translate-x-1/2 bg-emerald-500 text-white text-[11px] sm:text-xs font-black py-0.5 sm:py-1 px-3.5 sm:px-4 rounded-full shadow-soft flex items-center gap-1 whitespace-nowrap">
+                    <Gift size={12} />
+                    <span>تجربة مجانية بالكامل</span>
                   </div>
                 )}
 
@@ -104,19 +116,30 @@ export default function PricingPlans({ onSelectPlan }: PricingPlansProps) {
 
                   {/* Price */}
                   <div className="mb-4 sm:mb-5 pb-4 sm:pb-5 border-b border-border-light">
-                    <div className="flex items-baseline gap-1.5">
-                      <span className="text-2xl sm:text-4xl font-black font-heading text-text-heading">
-                        {plan.totalPrice}
-                      </span>
-                      <span className="text-xs sm:text-sm font-bold text-brand-green">
-                        {plan.currency}
-                      </span>
-                      {plan.sessionsCount > 1 && (
-                        <span className="text-[10px] sm:text-xs text-text-muted font-normal whitespace-nowrap">
-                          (حوالي {plan.pricePerSession} {plan.currency} / للحصة)
+                    {isFree ? (
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-3xl sm:text-4xl font-black font-heading text-emerald-600">
+                          مجاناً
                         </span>
-                      )}
-                    </div>
+                        <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                          100% بدون أي رسوم
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-2xl sm:text-4xl font-black font-heading text-text-heading">
+                          {plan.totalPrice}
+                        </span>
+                        <span className="text-xs sm:text-sm font-bold text-brand-green">
+                          {plan.currency}
+                        </span>
+                        {plan.sessionsCount > 1 && (
+                          <span className="text-[10px] sm:text-xs text-text-muted font-normal whitespace-nowrap">
+                            (حوالي {plan.pricePerSession} {plan.currency} / للحصة)
+                          </span>
+                        )}
+                      </div>
+                    )}
                     <span className="text-[11px] sm:text-xs text-brand-green font-bold mt-1 block">
                       عدد الحصص: {plan.sessionsCount} {plan.sessionsCount === 1 ? "حصة استكشافية" : "حصص تفاعلية للمادة"}
                     </span>
@@ -143,6 +166,8 @@ export default function PricingPlans({ onSelectPlan }: PricingPlansProps) {
                     className={`w-full py-2.5 sm:py-3 px-4 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-2 whitespace-nowrap ${
                       isPopular
                         ? "bg-brand-primary hover:bg-brand-primary-hover text-text-inverted shadow-soft hover:shadow-hover"
+                        : isFree
+                        ? "bg-emerald-600 hover:bg-emerald-700 text-white shadow-soft hover:shadow-hover"
                         : "bg-bg-surface-subtle hover:bg-brand-primary hover:text-text-inverted text-text-heading border border-border-medium"
                     }`}
                   >

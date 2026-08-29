@@ -35,6 +35,7 @@ import {
   Laptop,
   CheckCheck,
   Lock,
+  Gift,
   LucideProps,
 } from "lucide-react";
 
@@ -89,4 +90,5 @@ export {
   Laptop,
   CheckCheck,
   Lock,
+  Gift,
 };
